@@ -1,14 +1,13 @@
 <template>
   <div class="intro">
     <img src="static/apple-icon.png" alt="" />
-    Welcome to the (unofficial)
-    <b>Virtual Town Square and Grimoire</b> for Blood on the Clocktower! Please
-    add more players through the
+    {{$t("intro.greetingPrefix")}}
+    <b>{{$t("intro.gameName")}}</b> {{$t("intro.greetingPostfix")}}
+    {{$t("intro.shortcutPrefix")}}
     <span class="button" @click="toggleMenu">
       <font-awesome-icon icon="cog" /> Menu
     </span>
-    on the top right or by pressing <b>[A]</b>. You can also join a game session
-    by pressing <b>[J]</b>.<br />
+    {{$t("intro.shortcutPostfix")}} <b>[A]</b>. {{$t("intro.joinSessionShortcut")}} <b>[J]</b>.<br />
     <div class="footer">
       This project is free and open source and can be found on
       <a href="https://github.com/bra1n/townsquare" target="_blank">GitHub</a>.
@@ -20,6 +19,8 @@
 
 <script>
 import { mapMutations } from "vuex";
+// eslint-disable-next-line no-unused-vars
+import VueI18n from 'vue-i18n';
 
 export default {
   methods: mapMutations(["toggleMenu"])
@@ -59,3 +60,10 @@ export default {
   }
 }
 </style>
+
+<i18n>
+  {
+    "zh-cn": {},
+    "en-us": {}
+  }
+</i18n>
