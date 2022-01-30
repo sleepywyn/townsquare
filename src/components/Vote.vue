@@ -38,10 +38,10 @@
             v-if="!session.isVoteInProgress"
             @click="countdown"
           >
-            Countdown
+           {{$t("vote.countDown")}}
           </div>
           <div class="button" v-if="!session.isVoteInProgress" @click="start">
-            {{ session.lockedVote ? "Restart" : "Start" }}
+            {{ session.lockedVote ? $t("vote.restart") : $t("vote.start") }}
           </div>
           <template v-else>
             <div
@@ -63,10 +63,10 @@
             }"
             @click="setMarked"
           >
-            Mark for execution
+          {{$t("vote.execMark")}}
           </div>
           <div class="button" @click="removeMarked">
-            Clear mark
+          {{$t("vote.clearMark")}}
           </div>
         </div>
       </template>
@@ -80,14 +80,14 @@
             @click="vote(false)"
             :class="{ disabled: !currentVote }"
           >
-            Hand DOWN
+            {{$t("vote.handDown")}}
           </div>
           <div
             class="button demon"
             @click="vote(true)"
             :class="{ disabled: currentVote }"
           >
-            Hand UP
+            {{$t("vote.handUp")}}
           </div>
         </div>
       </template>

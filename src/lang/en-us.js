@@ -52,10 +52,40 @@ export default {
     "vacateSeat": "Vacate seat",
     "seatOccupied": "Seat occupied"
   },
-  modal: {
+  townsquare: {
+    "otherCharacters": "Other characters",
+    "demonBluffs": "Demon bluffs",
+    "notEnough": "Please add more players!",
+    "nightPhase": "Night phase",
+    "fabled": "Fabled"
+  },
+  vote: {
+    "countDown": "Countdown",
+    "restart": "Restart",
+    "start": "Start",
+    "execMark": "Mark for execution",
+    "clearMark": "Clear mark",
+    "handDown": "Hand DOWN",
+    "handUp": "Hand UP"
+  },
+  modal: { //         Assign {{ selectedRoles }} characters randomly
     nightOrder: {
       "firstNight": "First Night",
       "otherNights": "Other Nights"
+    },
+    roles: {
+      "distriRolesPrefix": "Assign",
+      "distriRolesPostfix": "characters randomly",
+      "shuffleCharacters": "Shuffle characters",
+      "allowDuplicate": "Allow duplicate characters",
+      "warning": "Warning⚠️: there are characters selected that modify the game setup! The randomizer does not account for these characters."
+    },
+    role: {
+      "editionRoles": "Edition Roles",
+      "otherTravelers": "Other Travelers"
+    },
+    reminder: {
+      "action": "Choose a reminder token:"
     }
   }
 }

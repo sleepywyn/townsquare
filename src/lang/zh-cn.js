@@ -53,10 +53,40 @@ export default {
     "vacateSeat": "空座位",
     "seatOccupied": "位置已被占据"
   },
+  townsquare: {
+    "otherCharacters": "不在场的身份",
+    "demonBluffs": "恶魔玩家可冒充的角色",
+    "notEnough": "请添加更多的玩家!",
+    "nightPhase": "夜晚阶段",
+    "fabled": "传奇角色"
+  },
+  vote: {
+    "countDown": "倒计时",
+    "restart": "重新开始",
+    "start": "开始",
+    "execMark": "标记被执行",
+    "clearMark": "清除标记",
+    "handDown": "举手",
+    "handUp": "放手"
+  },
   modal: {
     nightOrder: {
       "firstNight": "第一夜晚",
       "otherNights": "其它夜晚"
+    },
+    roles: {
+      "distriRolesPrefix": "随机分配",
+      "distriRolesPostfix": "个角色",
+      "shuffleCharacters": "随机角色",
+      "allowDuplicate": "允许角色重复",
+      "warning": "警告⚠️: 目前选择的角色会更改游戏角色数量设定！随机分发器并不会将这些更改计算在内"
+    },
+    role: {
+      "editionRoles": "版本角色",
+      "otherTravelers": "其它外来者"
+    },
+    reminder: {
+      "action": "选择一个备忘标记:"
     }
   }
 }

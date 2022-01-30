@@ -36,13 +36,13 @@
         class="button"
         :class="{ townsfolk: tab === 'editionRoles' }"
         @click="tab = 'editionRoles'"
-        >Edition Roles</span
+        >{{$t("modal.role.editionRoles")}}</span
       >
       <span
         class="button"
         :class="{ townsfolk: tab === 'otherTravelers' }"
         @click="tab = 'otherTravelers'"
-        >Other Travelers</span
+        >{{$t("modal.role.otherTravelers")}}</span
       >
     </div>
   </Modal>

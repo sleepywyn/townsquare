@@ -31,14 +31,13 @@
     <div class="warning" v-if="hasSelectedSetupRoles">
       <font-awesome-icon icon="exclamation-triangle" />
       <span>
-        Warning: there are characters selected that modify the game setup! The
-        randomizer does not account for these characters.
+        {{$t("modal.roles.warning")}}
       </span>
     </div>
     <label class="multiple" :class="{ checked: allowMultiple }">
       <font-awesome-icon :icon="allowMultiple ? 'check-square' : 'square'" />
       <input type="checkbox" name="allow-multiple" v-model="allowMultiple" />
-      Allow duplicate characters
+      {{$t("modal.roles.allowDuplicate")}}
     </label>
     <div class="button-group">
       <div
@@ -49,11 +48,11 @@
         }"
       >
         <font-awesome-icon icon="people-arrows" />
-        Assign {{ selectedRoles }} characters randomly
+        {{$t("modal.roles.distriRolesPrefix")}} {{ selectedRoles }} {{$t("modal.roles.distriRolesPostfix")}}
       </div>
       <div class="button" @click="selectRandomRoles">
         <font-awesome-icon icon="random" />
-        Shuffle characters
+        {{$t("modal.roles.shuffleCharacters")}}
       </div>
     </div>
   </Modal>

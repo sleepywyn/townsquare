@@ -110,28 +110,39 @@ export default {
     rolesFirstNight: function() {
       const rolesFirstNight = [];
       // add minion / demon infos to night order sheet
+      const isCN = this.$i18n.locale === "zh-cn";
+
+      const name1 = isCN ? "向爪牙传递信息" : "Minion info";
+      const firstNightMinionReminder = isCN ? 
+        "• 如果有超过一个爪牙，让他们互相用眼神交流. " + 
+        "• 向爪牙们展示恶魔卡，并用手示意扮演其的玩家以告知爪牙" :
+        "• If more than one Minion, they all make eye contact with each other. " +
+        "• Show the “This is the Demon” card. Point to the Demon.";
+      const name2 = isCN ? "向恶魔传递信息" : "Demon info & bluffs";
+
+      const firstNightDemonReminder = isCN ?
+        "• 向恶魔展示 -- ‘这是你的仆从的卡’，并指向所有的仆从" + 
+        "• 向恶魔展示 -- ‘这些角色并不在本局中’，同时展示三张好人卡" :
+        "• If more than one Minion, they all make eye contact with each other. " +
+        "• Show the “This is the Demon” card. Point to the Demon.";
+
       if (this.players.length > 6) {
         rolesFirstNight.push(
           {
             id: "evil",
-            name: "Minion info",
+            name: name1,
             firstNight: 5,
             team: "minion",
             players: this.players.filter(p => p.role.team === "minion"),
-            firstNightReminder:
-              "• If more than one Minion, they all make eye contact with each other. " +
-              "• Show the “This is the Demon” card. Point to the Demon."
+            firstNightReminder: firstNightMinionReminder
           },
           {
             id: "evil",
-            name: "Demon info & bluffs",
+            name: name2,
             firstNight: 8,
             team: "demon",
             players: this.players.filter(p => p.role.team === "demon"),
-            firstNightReminder:
-              "• Show the “These are your minions” card. Point to each Minion. " +
-              "• Show the “These characters are not in play” card. Show 3 character tokens of good " +
-              "characters not in play."
+            firstNightReminder: firstNightDemonReminder
           }
         );
       }
