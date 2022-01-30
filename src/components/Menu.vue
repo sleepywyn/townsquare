@@ -123,33 +123,33 @@
             {{ session.isSpectator ? "Playing" : "Hosting" }}
           </li>
           <li class="headline" v-else>
-            Live Session
+            {{$t("menu.liveSession")}}
           </li>
           <template v-if="!session.sessionId">
-            <li @click="hostSession">Host (Storyteller)<em>[H]</em></li>
-            <li @click="joinSession">Join (Player)<em>[J]</em></li>
+            <li @click="hostSession">{{$t("menu.hostSession")}}<em>[H]</em></li>
+            <li @click="joinSession">{{$t("menu.joinSession")}}<em>[J]</em></li>
           </template>
           <template v-else>
             <li v-if="session.ping">
-              Delay to {{ session.isSpectator ? "host" : "players" }}
+              {{$t("menu.delay")}} {{ session.isSpectator ? "host" : "players" }}
               <em>{{ session.ping }}ms</em>
             </li>
             <li @click="copySessionUrl">
-              Copy player link
+              {{$t("menu.copyPlayerLink")}}
               <em><font-awesome-icon icon="copy"/></em>
             </li>
             <li v-if="!session.isSpectator" @click="distributeRoles">
-              Send Characters
+              {{$t("menu.sendCharacters")}}
               <em><font-awesome-icon icon="theater-masks"/></em>
             </li>
             <li
               v-if="session.voteHistory.length || !session.isSpectator"
               @click="toggleModal('voteHistory')"
             >
-              Vote history<em>[V]</em>
+              {{$t("menu.voteHistory")}}<em>[V]</em>
             </li>
             <li @click="leaveSession">
-              Leave Session
+              {{$t("menu.leaveSession")}}
               <em>{{ session.sessionId }}</em>
             </li>
           </template>
@@ -158,13 +158,13 @@
         <template v-if="tab === 'players' && !session.isSpectator">
           <!-- Users -->
           <li class="headline">Players</li>
-          <li @click="addPlayer" v-if="players.length < 20">Add<em>[A]</em></li>
+          <li @click="addPlayer" v-if="players.length < 20">{{$t("menu.add")}}<em>[A]</em></li>
           <li @click="randomizeSeatings" v-if="players.length > 2">
-            Randomize
+            {{$t("menu.randomize")}}
             <em><font-awesome-icon icon="dice"/></em>
           </li>
           <li @click="clearPlayers" v-if="players.length">
-            Remove all
+            {{$t("menu.removeAll")}}
             <em><font-awesome-icon icon="trash-alt"/></em>
           </li>
         </template>
@@ -173,22 +173,22 @@
           <!-- Characters -->
           <li class="headline">Characters</li>
           <li v-if="!session.isSpectator" @click="toggleModal('edition')">
-            Select Edition
+            {{$t("menu.selectEdition")}}
             <em>[E]</em>
           </li>
           <li
             @click="toggleModal('roles')"
             v-if="!session.isSpectator && players.length > 4"
           >
-            Choose & Assign
+            {{$t("menu.distriRoles")}}
             <em>[C]</em>
           </li>
           <li v-if="!session.isSpectator" @click="toggleModal('fabled')">
-            Add Fabled
+            {{$t("menu.addFabled")}}
             <em><font-awesome-icon icon="dragon"/></em>
           </li>
           <li @click="clearRoles" v-if="players.length">
-            Remove all
+            {{$t("menu.removeAll")}}
             <em><font-awesome-icon icon="trash-alt"/></em>
           </li>
         </template>
@@ -197,20 +197,20 @@
           <!-- Help -->
           <li class="headline">Help</li>
           <li @click="toggleModal('reference')">
-            Reference Sheet
+            {{$t("menu.referenceSheet")}}
             <em>[R]</em>
           </li>
           <li @click="toggleModal('nightOrder')">
-            Night Order Sheet
+            {{$t("menu.nightOrderSheet")}}
             <em>[N]</em>
           </li>
           <li @click="toggleModal('gameState')">
-            Game State JSON
+            {{$t("menu.gameState")}}
             <em><font-awesome-icon icon="file-code"/></em>
           </li>
           <li>
             <a href="https://discord.gg/Gd7ybwWbFk" target="_blank">
-              Join Discord
+            {{$t("menu.discord")}}
             </a>
             <em>
               <a href="https://discord.gg/Gd7ybwWbFk" target="_blank">

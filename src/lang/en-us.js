@@ -20,7 +20,25 @@ export default {
     "backgroundImg": "Background Image",
     "showCustomImgs": "Show Custom Images",
     "disableAni": "Disable Animations",
-    "muteSounds": "Mute Sounds"
+    "muteSounds": "Mute Sounds",
+    "liveSession": "Live Session",
+    "hostSession": "Host (Storyteller)",
+    "joinSession": "Join (Player)",
+    "delay": "Delay to",
+    "sendCharacters": "Send Characters",
+    "copyPlayerLink": "Copy player link",
+    "voteHistory": "Vote history",
+    "leaveSession": "Leave Session",
+    "add": "Add",
+    "randomize": "Randomize",
+    "removeAll": "Remove all",
+    "selectEdition": "Select Edition",
+    "distriRoles": "Choose & Assign",
+    "addFabled": "Add Fabled",
+    "referenceSheet": "Reference Sheet",
+    "nightOrderSheet": "Night Order Sheet",
+    "gameState": "Game State JSON",
+    "discord": "Join Discord"
   },
   player: {
     "changePronouns": "Change Pronouns",
@@ -31,6 +49,13 @@ export default {
     "emptySeat": "Empty seat",
     "nomination": "Nomination",
     "claimSeat": "Claim seat",
-    "vacateSeat": "Vacate seat"
+    "vacateSeat": "Vacate seat",
+    "seatOccupied": "Seat occupied"
+  },
+  modal: {
+    nightOrder: {
+      "firstNight": "First Night",
+      "otherNights": "Other Nights"
+    }
   }
 }
