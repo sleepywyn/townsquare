@@ -27,7 +27,7 @@ const getRolesByEdition = (edition = editionJSON[0]) => {
 };
 
 const getTravelersNotInEdition = (edition = editionJSON[0]) => {
-  let roles = i18n.locale === "zh-cn" ? fabledJSON : enFabledJSON;
+  let roles = i18n.locale === "zh-cn" ? rolesJSON : enRolesJSON;
   return new Map(
     roles
       .filter(
@@ -62,6 +62,11 @@ const getJinXies = () => {
   }
 }
 
+const getRolesJSONById = () => {
+  let roles = i18n.locale === "zh-cn" ? rolesJSON : enRolesJSON;
+  return new Map(roles.map(role => [role.id, role]));
+};
+
 const set = key => ({ grimoire }, val) => {
   grimoire[key] = val;
 };
@@ -80,9 +85,11 @@ const clean = id => id.toLocaleLowerCase().replace(/[^a-z0-9]/g, "");
 const editionJSONbyId = new Map(
   editionJSON.map(edition => [edition.id, edition])
 );
-const rolesJSONbyId = new Map(rolesJSON.map(role => [role.id, role]));
-const fabled = new Map(fabledJSON.map(role => [role.id, role]));
-
+let rolesJSONbyId = getRolesJSONById();
+const getFabled = () => {
+  let roles = i18n.locale === "zh-cn" ? fabledJSON : enFabledJSON;
+  return new Map(roles.map(role => [role.id, role]));
+};
 
 // base definition for custom roles
 const customRole = {
@@ -133,7 +140,7 @@ export default new Vuex.Store({
     edition: editionJSONbyId.get("tb"),
     roles: getRolesByEdition(),
     otherTravelers: getTravelersNotInEdition(),
-    fabled,
+    fabled: getFabled(),
     jinxes: getJinXies()
   },
   getters: {
@@ -264,8 +271,10 @@ export default new Vuex.Store({
     },
 
     reloadRoleJSONs(state) {
+      rolesJSONbyId = getRolesJSONById();
       state.roles = getRolesByEdition(state.edition);
       state.otherTravelers = getTravelersNotInEdition(state.edition);
+      state.fabled = getFabled();
       state.jinxes = getJinXies();
     },
 
