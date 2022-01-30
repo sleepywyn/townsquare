@@ -47,19 +47,19 @@
 
         <template v-if="tab === 'grimoire'">
           <!-- Grimoire -->
-          <li class="headline">Grimoire</li>
+          <li class="headline">{{$t("menu.grimoire")}}</li>
           <li @click="toggleGrimoire" v-if="players.length">
-            <template v-if="!grimoire.isPublic">Hide</template>
-            <template v-if="grimoire.isPublic">Show</template>
+            <template v-if="!grimoire.isPublic">{{$t("menu.hide")}}</template>
+            <template v-if="grimoire.isPublic">{{$t("menu.show")}}</template>
             <em>[G]</em>
           </li>
           <li @click="toggleNight" v-if="!session.isSpectator">
-            <template v-if="!grimoire.isNight">Switch to Night</template>
-            <template v-if="grimoire.isNight">Switch to Day</template>
+            <template v-if="!grimoire.isNight">{{$t("menu.switchToNight")}}</template>
+            <template v-if="grimoire.isNight">{{$t("menu.switchToDay")}}</template>
             <em>[S]</em>
           </li>
           <li @click="toggleNightOrder" v-if="players.length">
-            Night order
+            {{$t("menu.nightOrder")}}
             <em>
               <font-awesome-icon
                 :icon="[
@@ -70,7 +70,7 @@
             </em>
           </li>
           <li v-if="players.length">
-            Zoom
+            {{$t("menu.zoom")}}
             <em>
               <font-awesome-icon
                 @click="setZoom(grimoire.zoom - 1)"
@@ -84,7 +84,7 @@
             </em>
           </li>
           <li @click="setBackground">
-            Background image
+            {{$t("menu.backgroundImg")}}
             <em><font-awesome-icon icon="image"/></em>
           </li>
           <li v-if="!edition.isOfficial" @click="imageOptIn">
@@ -98,18 +98,22 @@
             /></em>
           </li>
           <li @click="toggleStatic">
-            Disable Animations
+            {{$t("menu.disableAni")}}
             <em
               ><font-awesome-icon
                 :icon="['fas', grimoire.isStatic ? 'check-square' : 'square']"
             /></em>
           </li>
           <li @click="toggleMuted">
-            Mute Sounds
+            {{$t("menu.muteSounds")}}
             <em
               ><font-awesome-icon
                 :icon="['fas', grimoire.isMuted ? 'volume-mute' : 'volume-up']"
             /></em>
+          </li>
+          <li @click="switchLanguage">
+            {{$t("menu.switchLanguage")}}
+            <em></em>
           </li>
         </template>
 
@@ -243,6 +247,12 @@ export default {
       tab: "grimoire"
     };
   },
+
+  created() {
+    const lang = this.$i18n.locale;
+    console.log(lang);
+  },
+  
   methods: {
     setBackground() {
       const background = prompt("Enter custom background URL");
@@ -344,6 +354,11 @@ export default {
       if (this.grimoire.isNight) {
         this.$store.commit("session/setMarkedPlayer", -1);
       }
+    },
+    switchLanguage() {
+      const lang = this.$i18n.locale;
+      this.$i18n.locale = lang === 'zh-cn' ? 'en-us' : 'zh-cn';
+      this.$store.commit('reloadRoleJSONs');
     },
     ...mapMutations([
       "toggleGrimoire",

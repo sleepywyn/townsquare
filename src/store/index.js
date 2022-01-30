@@ -6,15 +6,20 @@ import players from "./modules/players";
 import session from "./modules/session";
 import editionJSON from "../editions.json";
 import rolesJSON from "../roles.json";
+import enRolesJSON from "../roles-en.json";
 import fabledJSON from "../fabled.json";
+import enFabledJSON from '../fabled-en.json';
 import jinxesJSON from "../hatred.json";
+import enJinXesJSON from "../hatred-en.json";
+import i18n from "../lang/i18n";
 
 Vue.use(Vuex);
 
 // helper functions
 const getRolesByEdition = (edition = editionJSON[0]) => {
+  let roles = i18n.locale === "zh-cn" ? rolesJSON : enRolesJSON;
   return new Map(
-    rolesJSON
+    roles
       .filter(r => r.edition === edition.id || edition.roles.includes(r.id))
       .sort((a, b) => b.team.localeCompare(a.team))
       .map(role => [role.id, role])
@@ -22,8 +27,9 @@ const getRolesByEdition = (edition = editionJSON[0]) => {
 };
 
 const getTravelersNotInEdition = (edition = editionJSON[0]) => {
+  let roles = i18n.locale === "zh-cn" ? fabledJSON : enFabledJSON;
   return new Map(
-    rolesJSON
+    roles
       .filter(
         r =>
           r.team === "traveler" &&
@@ -33,6 +39,28 @@ const getTravelersNotInEdition = (edition = editionJSON[0]) => {
       .map(role => [role.id, role])
   );
 };
+
+const getJinXies = () => {
+  let roles = i18n.locale === "zh-cn" ? jinxesJSON : enJinXesJSON;
+  let jinxes = {};
+  try {
+    // Note: can't fetch live list due to lack of CORS headers
+    // fetch("https://bloodontheclocktower.com/script/data/hatred.json")
+    //   .then(res => res.json())
+    //   .then(jinxesJSON => {
+    jinxes = new Map(
+      roles.map(({ id, hatred }) => [
+        clean(id),
+        new Map(hatred.map(({ id, reason }) => [clean(id), reason]))
+      ])
+    );
+    return jinxes;
+    // });
+  } catch (e) {
+    console.error("couldn't load jinxes", e);
+    return null;
+  }
+}
 
 const set = key => ({ grimoire }, val) => {
   grimoire[key] = val;
@@ -55,23 +83,6 @@ const editionJSONbyId = new Map(
 const rolesJSONbyId = new Map(rolesJSON.map(role => [role.id, role]));
 const fabled = new Map(fabledJSON.map(role => [role.id, role]));
 
-// jinxes
-let jinxes = {};
-try {
-  // Note: can't fetch live list due to lack of CORS headers
-  // fetch("https://bloodontheclocktower.com/script/data/hatred.json")
-  //   .then(res => res.json())
-  //   .then(jinxesJSON => {
-  jinxes = new Map(
-    jinxesJSON.map(({ id, hatred }) => [
-      clean(id),
-      new Map(hatred.map(({ id, reason }) => [clean(id), reason]))
-    ])
-  );
-  // });
-} catch (e) {
-  console.error("couldn't load jinxes", e);
-}
 
 // base definition for custom roles
 const customRole = {
@@ -123,7 +134,7 @@ export default new Vuex.Store({
     roles: getRolesByEdition(),
     otherTravelers: getTravelersNotInEdition(),
     fabled,
-    jinxes
+    jinxes: getJinXies()
   },
   getters: {
     /**
@@ -251,6 +262,13 @@ export default new Vuex.Store({
           .map(role => [role.id, role])
       );
     },
+
+    reloadRoleJSONs(state) {
+      state.roles = getRolesByEdition(state.edition);
+      state.otherTravelers = getTravelersNotInEdition(state.edition);
+      state.jinxes = getJinXies();
+    },
+
     setEdition(state, edition) {
       if (editionJSONbyId.has(edition.id)) {
         state.edition = editionJSONbyId.get(edition.id);
