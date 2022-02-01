@@ -19,15 +19,19 @@ if (process.env.NODE_ENV !== "development") {
   options.key = fs.readFileSync("key.pem");
 }
 
-const server = https.createServer(options);
-const wss = new WebSocket.Server({
-  ...(process.env.NODE_ENV === "development" ? { port: 8067 } : { server }),
-  verifyClient: info =>
-    info.origin &&
-    !!info.origin.match(
-      /^https?:\/\/([^.]+\.github\.io|localhost|clocktower\.online|eddbra1nprivatetownsquare\.xyz)/i
+const server = https.createServer(options); // not used for local prod
+const wss = new WebSocket.Server({ // prod: 8068 port for backend
+  ...(process.env.NODE_ENV === "development" ? { port: 8067 } : { port:8068 }), // 此处没有用 { server }， 关掉https.
+  verifyClient: info => info.origin &&
+    ( !!info.origin.match(/^https?:\/\/([^.]+\.github\.io|localhost|clocktower\.online|eddbra1nprivatetownsquare\.xyz)/i)
+    ||!!info.origin.match('47.96.97.205')
     )
 });
+
+//const wss = new WebSocket.Server({
+//  ...(process.env.NODE_ENV === "development" ? { port: 8067 } : { port: 8068 }),
+//  verifyClient: info => true
+//});
 
 function noop() {}
 
@@ -252,7 +256,7 @@ wss.on("close", function close() {
 // prod mode with stats API
 if (process.env.NODE_ENV !== "development") {
   console.log("server starting");
-  server.listen(8068);
+  server.listen(8067);
   server.on("request", (req, res) => {
     res.setHeader("Content-Type", register.contentType);
     register.metrics().then(out => res.end(out));
